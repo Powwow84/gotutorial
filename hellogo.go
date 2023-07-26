@@ -1,17 +1,18 @@
 package main
 
 import (
-	// "bufio"
+	"bufio"
 	"fmt"
-	// "strconv"
-	// "strings"
+	"strconv"
+	"strings"
 	// "unicode/utf8"
 
-	// "log"
-	// "os"
+	"log"
+	"os"
 	// "reflect"
-	// "time"
-	"math"
+	"time"
+	// "math"
+	"math/rand"
 )
 
 var pl = fmt.Println
@@ -148,24 +149,24 @@ func main() {
 	// -----------------Mathmathical functions
 		// Most commonly used
 
-	pl("Abs(-10) =", math.Abs(-10))
-	pl("Pow(4, 2) =", math.Pow(4, 2))
-	pl("Cbrt(8) =", math.Cbrt(8))
-	pl("Ceil(4.4) =", math.Ceil(4.4))
-	pl("floor(4.4) =", math.Floor(4.4))
-	pl("Round(4.4) =", math.Round(4.4))
-	pl("Log2(8) =", math.Log2(8))
-	pl("Log10(100) =", math.Log10(100))
-	// get the log of e to the power of 2
-	pl("Log(7.389) =", math.Log(math.Exp(2)))
-	pl("Max(5,4) =", math.Max(5,4))
-	pl("Min(5,4) =", math.Min(5,4))
-	// converts 90 degrees into radians
-	r90 := 90 * math.Pi / 180
-	// converts radians into degrees
-	d90 := r90 * (180 / math.Pi)
-	fmt.Printf("%f radians = %f degrees\n", r90, d90)
-	pl("Sin(90) =", math.Sin(r90))
+	// pl("Abs(-10) =", math.Abs(-10))
+	// pl("Pow(4, 2) =", math.Pow(4, 2))
+	// pl("Cbrt(8) =", math.Cbrt(8))
+	// pl("Ceil(4.4) =", math.Ceil(4.4))
+	// pl("floor(4.4) =", math.Floor(4.4))
+	// pl("Round(4.4) =", math.Round(4.4))
+	// pl("Log2(8) =", math.Log2(8))
+	// pl("Log10(100) =", math.Log10(100))
+	// // get the log of e to the power of 2
+	// pl("Log(7.389) =", math.Log(math.Exp(2)))
+	// pl("Max(5,4) =", math.Max(5,4))
+	// pl("Min(5,4) =", math.Min(5,4))
+	// // converts 90 degrees into radians
+	// r90 := 90 * math.Pi / 180
+	// // converts radians into degrees
+	// d90 := r90 * (180 / math.Pi)
+	// fmt.Printf("%f radians = %f degrees\n", r90, d90)
+	// pl("Sin(90) =", math.Sin(r90))
 	// there are also functions dor cos, tan, acos, asin
 	// Atan, AsinH, Acosh, Atanh, Atan2, Cosh, Sinh, Sincos, Htpos
 
@@ -193,6 +194,63 @@ func main() {
 	// randNum := rand.Intn(50) + 1 // generates a random number exclusive of 50 (0 -49). So we add the +1 to generate it to 0 - 50
 	// pl("Random : ", randNum)
 
+	//  -------- formatted print
 
-	
+	//  %d : Integer
+	//  %c : Character
+	//  %f : Float
+	//  %t : Boolean
+	//  %s : String
+	//  %o : Base 8
+	//  %x : Base 16
+	//  %v : Guesses based on data type
+	//  %T : Type of supplied value
+
+	// fmt.Printf("%s %d %c %f %t %o %x\n", "Stuff", 1, 'A', 3.14, true, 1, 1)
+	// fmt.Printf("%9f\n", 3.14)
+	// fmt.Printf("%.2f\n", 3.141592)
+	// fmt.Printf("%9.f\n", 3.141592)
+
+	// sp1 := fmt.Sprintf("%9.f\n",3.141592)
+	// pl(sp1)
+
+	// ------------- conditionals
+
+	//  for inititiazation; condition; poststatment {BODY}
+	// for x := 1; x <= 5; x++ {
+	// 	fmt.Println(x)
+	// }
+
+	// fX := 0
+	// for fX < 5 { // while loop
+	// 	pl(fX)
+	// 	fX++
+	// }
+
+	seedSecs := time.Now().Unix()
+	rand.Seed(seedSecs)
+	randNum := rand.Intn(50) +1
+	for true {
+		fmt.Println("Guess a number between 0 and 50")
+		fmt.Println("random number is %d", randNum)
+		reader := bufio.NewReader(os.Stdin)
+		guess, err := reader.ReadString('\n')
+		if err != nil {
+			log.Fatal(err)
+		}
+		guess = strings.TrimSpace(guess)
+		iGuess, err := strconv.Atoi(guess)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if iGuess > randNum {
+			fmt.Println("enter a lower number")
+		} else if iGuess < randNum {
+			fmt.Println("guess a higher number")
+		} else {
+			fmt.Println("Your Right")
+			break
+		}
+		
+	}
 }
