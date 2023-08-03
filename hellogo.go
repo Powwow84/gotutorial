@@ -1,21 +1,65 @@
 package main
 
 import (
-	"bufio"
+	// "bufio"
 	"fmt"
-	"strconv"
-	"strings"
-	// "unicode/utf8"
+	// "strconv"
+	// "strings"
+	// // "unicode/utf8"
 
-	"log"
-	"os"
-	// "reflect"
-	"time"
-	// "math"
-	"math/rand"
+	// "log"
+	// "os"
+	// // "reflect"
+	// "time"
+	// // "math"
+	// "math/rand"
 )
 
 var pl = fmt.Println
+
+func sayHello(){
+	pl("Hello")
+}
+
+func getSum(x int, y int) int {
+	sum := x + y
+	pl(sum)
+	return sum // if you have a return type you need to have the return statement in there
+}
+
+func getTwo(x int) (int, int) { //if you need to return two return types back from a function you need to wrap the return type in ()
+	return x+1, x+2
+}
+
+func getQuotient(x float64, y float64) (ans float64, err error) {
+	if y == 0 {
+		return 0, fmt.Errorf("You can't divide by zero")
+	} else {
+		return x / y, nil
+	}
+}
+
+func getMore(nums ...int) int { //syntax allows for an undeclared number of parameters -> getMore(1,2,3,4,5,6,7)
+	sum := 0
+	for _, num := range nums {
+		sum += num
+	}
+	return sum
+}
+
+func getArraySum(arr []int) int { // using an array as a parameter. note pass by value will not change the contents of the array outside of the function when used inside of a function
+	sum := 0
+	for _, val := range arr {
+		sum += val
+	}
+	return sum
+}
+
+func changeVal(myPtr *int) { //to change the value of a passed by value you need to use a pointer  '*'  and the address '&' changeVal(&f3). to store a pbv 'var variable *int = some_value'
+	*myPtr = 12
+}
+
+
 
 func main() {
 	// pl("hello go")
@@ -227,30 +271,163 @@ func main() {
 	// 	fX++
 	// }
 
-	seedSecs := time.Now().Unix()
-	rand.Seed(seedSecs)
-	randNum := rand.Intn(50) +1
-	for true {
-		fmt.Println("Guess a number between 0 and 50")
-		fmt.Println("random number is %d", randNum)
-		reader := bufio.NewReader(os.Stdin)
-		guess, err := reader.ReadString('\n')
-		if err != nil {
-			log.Fatal(err)
-		}
-		guess = strings.TrimSpace(guess)
-		iGuess, err := strconv.Atoi(guess)
-		if err != nil {
-			log.Fatal(err)
-		}
-		if iGuess > randNum {
-			fmt.Println("enter a lower number")
-		} else if iGuess < randNum {
-			fmt.Println("guess a higher number")
-		} else {
-			fmt.Println("Your Right")
-			break
-		}
+	// seedSecs := time.Now().Unix()
+	// rand.Seed(seedSecs)
+	// randNum := rand.Intn(50) +1
+	// for true {
+	// 	fmt.Println("Guess a number between 0 and 50")
+	// 	fmt.Println("random number is %d", randNum)
+	// 	reader := bufio.NewReader(os.Stdin)
+	// 	guess, err := reader.ReadString('\n')
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	guess = strings.TrimSpace(guess)
+	// 	iGuess, err := strconv.Atoi(guess)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	if iGuess > randNum {
+	// 		fmt.Println("enter a lower number")
+	// 	} else if iGuess < randNum {
+	// 		fmt.Println("guess a higher number")
+	// 	} else {
+	// 		fmt.Println("Your Right")
+	// 		break
+	// 	}
 		
-	}
+	// }
+
+	//  ---- loop through an array
+	// aNums := []int{1,2,3}
+	// for _, num := range aNums {
+	// 	pl(num)
+	// }
+
+	// ----------------------Arrays
+
+	// var arr1 [5]int //an array that has a declared size of 5
+	// arr1[0] = 1
+	// arr2 := [5]int{1,2,3,4,5} // declaring an array of size 5 with 5 values in the array
+	// pl("Index 0:", arr2[0]) //prints whats at arr1 index 0. inthis case the value is 1
+	// pl("Arr Length :", len(arr2))
+	// for i := 0 ; i < len(arr2) ; i++ {
+	// 	pl(arr2[i])
+	// }
+	// for i, v := range arr2 {
+	// 	fmt.Printf("%d : %d \n", i, v)
+	// }
+	// arr3 := [2][2]int{
+	// 	{1,2},
+	// 	{3,4},
+	// }
+	// for i := 0 ; i < 2 ; i++ {
+	// 	for j := 0 ; j < 2 ; j++ {
+	// 		pl(arr3[i][j])
+	// 	}
+	// }
+
+	// aStr1 := "abcde"
+	// rArr := []rune(aStr1)
+	// for _, v := range rArr {
+	// 	fmt.Printf("Rune Array : %d\n", v)
+	// }
+	// byteArr := []byte{'a', 'b', 'c'}
+	// pl(byteArr)
+	// bStr := string(byteArr[:]) //the [:] is referencing a slice of the slice for instance you can do [1:3] so it represents a slice from index 1 and ending in index 2 not inclusive of 3
+	// pl("I'm a string :", bStr)
+
+	// --------slices
+	// slices are like arrays but can grow in size
+
+	// sl1 := make([]string, 6)
+	// sl1[0] = "Society"
+	// sl1[1] = "of"
+	// sl1[2] = "the"
+	// sl1[3] = "Simulated"
+	// sl1[4] = "Universe"
+	// pl("Slice Size :", len(sl1))
+	// for i := 0; i < len(sl1); i++ {
+	// 	pl(sl1[i])
+	// }
+	// for i, x := range sl1 {
+	// 	pl(x, i)
+	// }
+
+	// sArr := [5]int{1,2,3,4,5}
+	// sl3 := sArr[0:2]
+	// pl(sl3)
+	// pl("1st 3 numbers of the array: ", sArr[:3])
+	// pl("slice from index 2 to the end: ", sArr[2:])
+	// sArr[0] = 10 //changing the array changes the slice that referenced it
+	// pl("sl3 : ", sl3)
+	// sl3[0] = 1 //changing the slice changes the array
+	// pl("sArr :", sArr)
+
+	// sl3 = append(sl3, 12) //appending to a slice will append will modify the array that was referenced, in this example 12 is appeneded to the end of the slice, but it changes index 2 of the referenced array
+	// pl("sl3 :", sl3)
+	// pl("sArr :", sArr)
+
+	// sl4 := make([]string, 6) //empty slices will out put an empty array
+	// pl("sl4 :", sl4) //this will output an empty array
+	// pl("sl4[0] :", sl4[0]) // this will output nil sl4[0] :
+
+	//  ------------------functions
+	//func funcName(parameters) returnType {BODY}
+	// ********************** Go does not support nested functions. declaring a function in here is goin to throw an error
+
+	// func sayHello(){
+	// 	pl("Hello")
+	// }
+
+	// sayHello() // to call the function
+	// getSum(5, 6)
+
+	// ------ Pointers
+
+	// func getArraySum(arr []int) int { // using an array as a parameter. note pass by value will not change the contents of the array outside of the function when used inside of a function
+	// 	sum := 0
+	// 	for _, val := range arr {
+	// 		sum += val
+	// 	}
+	// 	return sum
+	// }
+
+	f4 := 10
+	var f3 int
+	var f4PTR * int = &f4
+	pl("f4 addess :", f4PTR)
+	pl("f4 Value :", *f4PTR)
+	*f4PTR = 11 //using pointer to directly change a value
+	pl("f4 Value :", *f4PTR)
+
+	pl("f3 before func :", f3)
+	changeVal(&f3) //changes the value as the argument is passed in
+	pl("f3 after func :", f3)
+
+// 	func changeVal(myPtr *int) { //to change the value of a passed by value you need to use a pointer  '*'  and the address '&' changeVal(&f3). to store a pbv 'var variable *int = some_value'
+// 	*myPtr = 12
+// }
+
+	// func dblArrVals(arr *[4]int){ //passing an array through a function with a pointer to change the value of the array with the pointer and the address
+	// 	for x := 0 ; x < 4; x++ {
+	// 		arr[x] *= 2
+	// 	}
+	// }
+
+	// pArr := [4]int{1,2,3,4}
+	// dblArrVals(&pArr)
+	// pl(pArr)
+
+	// func getAverages(nums ...float64) float64{
+	// 	var sum float64 = 0.0
+	// 	var numSize float64 = float64(len(nums))
+	// 	for _, val := range nums {
+	// 		sum += val
+	// 	}
+	// 	return(sum/numSize)
+	// }
+
+	// iSlice := []float64{11,13,17}
+	// fmt.Printf("Averages : %.3f\n", getAverages(iSlice...)) //the .3f limits the return to 3 decimals points
 }
